@@ -4,12 +4,12 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from find import find_valid_examples
 
 CPU_CORES = os.cpu_count() or 1
-MAX_WORKERS = max(CPU_CORES*2/8, 1)
+MAX_WORKERS = max(CPU_CORES*2/4, 1)
 
 def compile_single_example(example: str):
     docker_command = [
         "bash", "-i", "-c",
-        f"cd {example} && cd project && scons --board=sf32lb52-lcd_n16r8 -j8"
+        f"cd {example} && cd project && scons --board=sf32lb52-lcd_n16r8 -j4"
     ]
     try:
         subprocess.run(
